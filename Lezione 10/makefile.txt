@@ -1,0 +1,24 @@
+# Compiler settings
+CC = mpicxx
+CFLAGS = -Wall -O3 --std=c++11
+
+# Rules for executables
+main.exe: main.o random.o utility.h
+	$(CC) main.o random.o -o $@ $(LIBS) $(INCS)
+
+# Rules for object files
+main.o: main.cpp utility.h
+	$(CC) -c main.cpp -o $@ $(CFLAGS) $(INCS)
+
+random.o: random.cpp utility.h
+	$(CC) -c random.cpp -o $@ $(CFLAGS) $(INCS)
+
+
+# Rule to build all
+all: main.exe
+
+# Clean rule
+clean:
+	rm -f *.o main.exe seed.out
+
+.PHONY: all clean
